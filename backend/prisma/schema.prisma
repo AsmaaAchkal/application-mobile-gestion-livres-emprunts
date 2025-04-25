@@ -1,0 +1,50 @@
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+model User {
+  id        Int     @id @default(autoincrement())
+  nom       String
+  prenom    String
+  telephone String?  @unique
+  email     String  @unique
+  password  String
+  role      Role    @default(USER) // "USER" ou "ADMIN"
+  emprunts  Emprunt[]
+}
+
+model Livre {
+  id             Int      @id @default(autoincrement())
+  titre          String
+  auteur         String
+  datePublication DateTime
+  description    String?   // Courte description du livre
+  categorie      String?   // Catégorie ou genre (ex: "Science-fiction", "Roman", "Histoire")
+  isbn           String?   @unique // Identifiant international du livre (ISBN)
+  langue         String?   // Langue du livre (ex: "Français", "Anglais")
+  nbPages        Int?      // Nombre de pages
+  disponible     Boolean   @default(true)
+  emprunts       Emprunt[]
+}
+
+
+model Emprunt {
+  id          Int     @id @default(autoincrement())
+  userId      Int
+  livreId     Int
+  dateEmprunt DateTime @default(now())
+  dateRetour  DateTime?
+
+  user  User  @relation(fields: [userId], references: [id])
+  livre Livre @relation(fields: [livreId], references: [id])
+}
