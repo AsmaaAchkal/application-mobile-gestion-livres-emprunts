@@ -56,7 +56,7 @@ Ce projet consiste à créer une application destinée à la **gestion des empru
 ### 1. Cloner le dépôt
   ```bash
      git clone https://github.com/AsmaaAchkal/application-mobile-gestion-livres-emprunts.git
-     cd library
+     cd nom_de_projet
   ```
 ### 2.Créer la base de données
    Créer une base de données .
@@ -64,7 +64,6 @@ Ce projet consiste à créer une application destinée à la **gestion des empru
 
 ### 3. Lancer le Frontend (React Native avec Expo)
   ```bash
-      cd libraryapp
       npm install
       npx expo start
   ```
